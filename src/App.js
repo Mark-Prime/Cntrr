@@ -1,23 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
 
+import React, {useState} from 'react';
+
+function range(start, end) {
+  return Array.from({length: (end - start)}, (_, i) => start + i);
+}
+
 function App() {
+  const [count, setCount] = useState(0);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='count'>
+        <h1>CNTRR</h1>
+        <div className='tally-container'>
+          {range(0, Math.floor(count/5)).map(i => <div className='tallies'>
+            <div className='tally'></div>
+            <div className='tally'></div>
+            <div className='tally'></div>
+            <div className='tally'></div>
+            <div className='tally'></div>
+          </div>)}
+          {count % 5 > 0 && 
+            <div className='tallies'>
+              {range(0, count % 5).map(i => <div className='tally'></div>)}
+            </div>
+          }
+          
+        </div>
+      </div>
+      <div className='buttons'>
+        <button onClick={() => setCount(Math.max(count - 1, 0))}>{"-"}</button>
+        <button onClick={() => setCount(count + 1)}>{"+"}</button>
+      </div>
     </div>
   );
 }
